@@ -64,3 +64,31 @@ A url shortner application
         - Nginx
             
 
+
+# Setup
+
+## .env files and exmples
+### 1. Root .env (for all infrastructure related environment)
+path : /.env
+```
+DB_NAME='shortner'
+DB_USER='admin'
+DB_PASSWORD='admin'
+DB_PORT='3306'
+```
+
+### 2.Backend .env (for all django specific and backend)
+path: backend/shortner/.env
+```
+# General settings
+DEBUG=True
+SECRET_KEY='hello_there_ki_haal_chaal'
+
+# Database related,
+# NOTE : Always copy the DB related content from the root .env, not the other way around
+DB_NAME='shortner'
+DB_USER='admin'
+DB_PASSWORD='admin'
+DB_HOST='database'
+DB_PORT='3306'
+```

@@ -1,0 +1,35 @@
+services:
+  django:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app
+    networks:
+      - backend_network
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend_network
+    
+volumes:
+  mysql_data:
+
+networks:
+  backend_network:
+    driver: bridge  
+    

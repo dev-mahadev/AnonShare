@@ -1,0 +1,11 @@
+# Project related stuff 
+pending_to_implement.*
+
+# Virtual environment
+/backend/proj02
+
+# Environment files
+.env
+
+# Cache files
+__pycache__/
