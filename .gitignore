@@ -1,5 +1,7 @@
 # Project related stuff 
 pending_to_implement.*
+decisions_made.*
+dev_files/
 
 # Virtual environment
 /backend/proj02
@@ -9,3 +11,6 @@ pending_to_implement.*
 
 # Cache files
 __pycache__/
+
+# Log files
+logs

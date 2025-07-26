@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 
 env=environ.Env()
@@ -28,9 +29,18 @@ environ.Env.read_env(BASE_DIR / '.env')
 SECRET_KEY = env('SECRET_KEY',default='django-insecure-l)=+rsi(b0*pd-gc84_qxf13^4jhnqmpfq&t&zy_lo1=6_*#&_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG",default=False)
-
+DEBUG = False 
 ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = []
+
+if env("DJANGO_ENV", default='PRODUCTION') == 'DEVELOPMENT':
+    DEBUG=True
+    ALLOWED_HOSTS=["*"]
+    CSRF_TRUSTED_ORIGINS=['http://localhost','http://127.0.0.1']
+else:
+    ALLOWED_HOSTS=env("ALLOWED_HOSTS", [])
+    CSRF_TRUSTED_ORIGINS=env("CSRF_TRUSTED_ORIGINS", [])
+
 
 
 # Application definition
@@ -42,6 +52,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'rest_framework',
+    
+    # Custom apps 
+    'short'
 ]
 
 MIDDLEWARE = [
@@ -75,9 +91,6 @@ WSGI_APPLICATION = 'shortner.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# remove : for local development
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -118,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -134,3 +147,71 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Basic logging configuration
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime}] {levelname} {name} {module}.{funcName}:{lineno} {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+        'json': {
+            'format': '{"time": "%(asctime)s", "level": "%(levelname)s", "module": "%(module)s", "message": "%(message)s"}',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file_info': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'info.log'),
+            'maxBytes': 1024*1024*10,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'file_error': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'error.log'),
+            'maxBytes': 1024*1024*10,  # 10MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file_info', 'file_error'],
+            'level': 'INFO',
+        }
+    },
+}
+
+
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)
