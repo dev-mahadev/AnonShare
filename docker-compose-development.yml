@@ -1,8 +1,8 @@
 services:
   django:
     build: ./backend
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - database
     restart: unless-stopped
@@ -25,7 +25,28 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - backend_network
+  
+  frontend:
+    build: ./frontend
+    expose:
+      - "3000"
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/frontend
+    networks:
+      - backend_network
+  
+  nginx:
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+    networks:
+      - backend_network
     
+
 volumes:
   mysql_data:
 
