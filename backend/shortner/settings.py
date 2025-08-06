@@ -32,14 +32,22 @@ SECRET_KEY = env('SECRET_KEY',default='django-insecure-l)=+rsi(b0*pd-gc84_qxf13^
 DEBUG = False 
 ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
+CORS_ALLOWED_ORIGINS = []
+DOMAIN=None
 
 if env("DJANGO_ENV", default='PRODUCTION') == 'DEVELOPMENT':
     DEBUG=True
     ALLOWED_HOSTS=["*"]
     CSRF_TRUSTED_ORIGINS=['http://localhost','http://127.0.0.1']
+    CORS_ALLOWED_ORIGINS=['http://localhost:3000', 'http://localhost']
+    DOMAIN='http://localhost:80'
+
 else:
     ALLOWED_HOSTS=env("ALLOWED_HOSTS", [])
     CSRF_TRUSTED_ORIGINS=env("CSRF_TRUSTED_ORIGINS", [])
+    CORS_ALLOWED_ORIGINS=env("CORS_ALLOWED_ORIGINS", [])
+    DOMAIN=env('DOMAIN')
+
 
 
 
@@ -54,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
+    'corsheaders',
     'rest_framework',
     
     # Custom apps 
@@ -61,6 +70,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Adds the cors headers in the response
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import UrlMapping
+from django.conf import settings
 
 class BaseUrlSerializer(serializers.ModelSerializer):
 
@@ -12,9 +13,12 @@ class BaseUrlSerializer(serializers.ModelSerializer):
         ]
 
 class UrlDetailSerializer(serializers.ModelSerializer):
+    full_length_short_url=serializers.SerializerMethodField()
 
     class Meta:
         model = UrlMapping
         fields = '__all__'
-
+    
+    def get_full_length_short_url(self, instance):
+        return settings.DOMAIN+f"/short/{instance.short_url}/"
 

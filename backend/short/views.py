@@ -68,6 +68,11 @@ class UrlViewSet(viewsets.ModelViewSet):
         # TODO-3
         # linked_user = get_user_from_request(request)
         # data['user'] = linked_user
+        data = {
+            **data,
+            "is_active": "True",
+            "user": 1
+        }
 
         # Serilizer validation, creation and response
         serializer_data = self.get_serializer()(data=data)

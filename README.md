@@ -81,8 +81,12 @@ DB_PORT='3306'
 path: backend/shortner/.env
 ```
 # General settings
+DJANGO_ENV='DEVELOPMENT'
+DOMAIN=http://localhost:80/
 DEBUG=True
 SECRET_KEY='hello_there_ki_haal_chaal'
+CORS_ALLOWED_ORIGINS=[]
+
 
 # Database related,
 # NOTE : Always copy the DB related content from the root .env, not the other way around
@@ -91,4 +95,9 @@ DB_USER='admin'
 DB_PASSWORD='admin'
 DB_HOST='database'
 DB_PORT='3306'
+```
+
+### 3. Frontend .env (for nextjs specific )
+```
+NEXT_PUBLIC_API_BASE_URL=http://localhost:80
 ```
