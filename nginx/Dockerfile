@@ -2,6 +2,9 @@ FROM docker.io/nginx:1.27.0-alpine3.19-slim
 
 RUN rm /etc/nginx/conf.d/default.conf 
 
+# For health checks
+RUN apk add --no-cache curl
+
 # Rate limiting html file
 COPY ./rate_limit.html /usr/share/nginx/html/rate_limit.html
 
