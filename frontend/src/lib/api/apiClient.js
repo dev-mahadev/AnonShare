@@ -1,3 +1,5 @@
+import { getCsrfToken } from "./util";
+
 // src/lib/api/apiClient.js
 
 // Base URL from environment variables. Eg: http://localhost:3000
@@ -33,6 +35,7 @@ const apiClient = {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
         ...headers,
+        "X-CSRFToken": getCsrfToken(), // This is what's missing!
       },
       ...(data && { body: JSON.stringify(data) }),
     };
@@ -56,5 +59,5 @@ const apiClient = {
     }
   },
 };
-	
+
 export default apiClient;

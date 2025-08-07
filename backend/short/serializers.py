@@ -20,5 +20,6 @@ class UrlDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def get_full_length_short_url(self, instance):
-        return settings.DOMAIN+f"/short/{instance.short_url}/"
+        # Ensure the presence/absence of slash (/) before short/ is based on the domain
+        return settings.DOMAIN+f"short/{instance.short_url}/"
 
