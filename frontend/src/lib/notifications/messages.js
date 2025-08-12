@@ -11,6 +11,10 @@ export const MESSAGES = {
     UPDATED: {
       message: "Link updated successfully.",
       kind: "success"
+    },
+    COPIED:{
+      message: "Copied the link",
+      kind: "success"
     }
   },
   AUTH: {

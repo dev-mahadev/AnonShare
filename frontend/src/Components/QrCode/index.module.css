@@ -1,0 +1,26 @@
+.qrWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.downloadButton {
+  gap: 6px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: .5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin:.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+}
+
+.downloadButton:hover {
+  background: #3a7bc8;
+}
+
+.downloadButton:active {
+  transform: scale(0.98);
+}

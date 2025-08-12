@@ -40,7 +40,8 @@ if env("DJANGO_ENV", default='PRODUCTION') == 'DEVELOPMENT':
     ALLOWED_HOSTS=["*"]
     CSRF_TRUSTED_ORIGINS=['http://localhost','http://127.0.0.1']
     CORS_ALLOWED_ORIGINS=['http://localhost:3000', 'http://localhost']
-    DOMAIN='http://localhost:80'
+    DOMAIN=env('DOMAIN', default='http://localhost:80/')
+
 
 else:
     ALLOWED_HOSTS=env.list("ALLOWED_HOSTS", [])
@@ -86,7 +87,7 @@ ROOT_URLCONF = 'shortner.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,6 +98,12 @@ TEMPLATES = [
         },
     },
 ]
+
+# Rest framework exception handling
+# settings.py
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'shortner.utils.exception_handler.html_exception_handler',
+}
 
 WSGI_APPLICATION = 'shortner.wsgi.application'
 
@@ -114,6 +121,14 @@ DATABASES = {
             'charset': 'utf8mb4',  # Supports emojis
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # Strict mode
         },
+    }
+}
+
+# Caching
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379",
     }
 }
 

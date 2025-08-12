@@ -1,11 +1,9 @@
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 from rest_framework import viewsets, status
 from .models import UrlMapping
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from .serializers import BaseUrlSerializer, UrlDetailSerializer
 import logging
@@ -29,36 +27,6 @@ class UrlViewSet(viewsets.ModelViewSet):
                 return UrlDetailSerializer
             case _: 
                 raise Exception("Invalid request method passed!")
-
-
-    @action(detail=False, methods=['get'], url_path='(?P<short_url>[^/.]+)')
-    def redirect_short_url(self, request, short_url=None):
-        """
-        Core method for redirecting the short url.
-        """
-        mapped_url = None 
-        try: 
-            mapped_url = UrlMapping.objects.get(short_url=short_url)
-
-            return Response(
-                headers={"Location": mapped_url.long_url},
-                status=status.HTTP_302_FOUND
-            )
-
-        except ObjectDoesNotExist:
-            # TODO-2: ref dev_files
-            return Response(
-                {"error": "Short URL not found"},
-                status=status.HTTP_404_NOT_FOUND
-            )
-        
-        except Exception as e:
-            print(f"Redirect failed: {str(e)}", exc_info=True)
-            return Response(
-                {"error": "Internal server error"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
 
     def create(self, request, *args, **kwargs):
         data = request.data 

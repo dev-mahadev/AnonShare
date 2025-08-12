@@ -1,4 +1,5 @@
 import logging
+import re
 
 
 logger = logging.getLogger("django")
@@ -20,4 +21,12 @@ def get_user_from_request(request):
         logger.error(f"Error while obtainin the user from request", e)
     
     return user
+
+
+def remove_protocol_and_www(url):
+    # Remove http:// or https://
+    url = re.sub(r'^https?://', '', url)
+    # Remove www.
+    url = re.sub(r'^www\.', '', url)
+    return url
 

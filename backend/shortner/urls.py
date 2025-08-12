@@ -19,7 +19,16 @@ from django.urls import path, include
 from shortner import views
 
 urlpatterns = [
+	# Global level paths
     path('admin/', admin.site.urls),
     path('health/', views.health_check, name='health'),
-    path("short/", include("short.urls"))
+	path("r/<str:short_url>/", views.redirect_short_url, name='redirect_url'),
+	
+    # Application level paths
+    path("api/short/", include("short.urls")),
 ]
+
+
+# Unknown paths Custom handlers
+handler404 = views.custom_404
+handler500 = views.custom_500

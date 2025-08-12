@@ -7,9 +7,11 @@ import { useNotify } from "@/lib/notifications/notificationClient";
 import { MESSAGES } from "@/lib/notifications/messages";
 import { GENERIC_ERRORS } from "@/lib/notifications/errors";
 
+import QRCode from "@/Components/QrCode";
+
 export default function Home() {
   const [userInputUrl, setUserInputUrl] = useState(null);
-  const [shortenedUrlList, setShortenedUrlList] = useState([]);
+  const [shortenedUrl, setShortenedUrl] = useState(null);
 
   // Notification hooks
   const notify = useNotify();
@@ -27,10 +29,7 @@ export default function Home() {
       .post(ENDPOINTS.SHORT.BASE, content)
       .then((response) => {
         if (response?.full_length_short_url) {
-          setShortenedUrlList([
-            ...shortenedUrlList,
-            [response.long_url, response.full_length_short_url],
-          ]);
+          setShortenedUrl(response.full_length_short_url);
         }
 
         notify(MESSAGES.SHORT.CREATED);
@@ -39,6 +38,16 @@ export default function Home() {
         notify(GENERIC_ERRORS.GENERIC);
       });
   };
+
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(shortenedUrl);
+      notify(MESSAGES.SHORT.COPIED);
+    } catch (err) {
+      notify(GENERIC_ERRORS.GENERIC);
+    }
+  };
+
   return (
     <main className={styles.main}>
       {/* Header with translucent effect */}
@@ -62,15 +71,16 @@ export default function Home() {
 
       {/* Main content centered */}
       <section className={styles.hero}>
-        <div className={styles.content}>
+        <div className={shortenedUrl ? styles.contentWithGeneratedUrl : styles.contentWithoutGeneratedUrl}>
           <h1 className={styles.title}>Shorten Your Links</h1>
           <p className={styles.subtitle}>Make long URLs short and shareable</p>
 
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputContainer}>
               <input
-                type="url"
-                required
+              type="url"
+              required
+                name="long_url_input"
                 onChange={(e) => setUserInputUrl(e.target.value)}
                 placeholder="https://www.mywebsite.com/..."
                 className={styles.input}
@@ -93,27 +103,35 @@ export default function Home() {
             </div>
           </form>
           {/* TODO-:  */}
-          {shortenedUrlList.length != 0 && (
-            <div className={styles.shortenedUrlTable}>
-              {shortenedUrlList.map((currUrlMapping, index) => {
-                return (
-                  <div
-                    key={currUrlMapping?.key ?? index}
-                    className={styles.shortenedUrlRow}
-                  >
-                    <p>{currUrlMapping[0]}</p>
-                    <a
-                      href={currUrlMapping[1]}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {currUrlMapping[1]}
-                    </a>
-                  </div>
-                );
-              })}
+          {shortenedUrl && (
+            <>
+            <div className={styles.urlContainer}>
+              <h3>🔗 Your Generated Link</h3>
+
+              <div className={styles.urlDisplayBox}>
+                <span className={styles.urlText} id="generated-url">
+                  {shortenedUrl}
+                </span>
+                <button
+                  className={styles.copyBtn}
+                  onClick={handleCopyUrl}
+                  type="button"
+                >
+                  {"Copy"}
+                </button>
+              </div>
+
+              <p className={styles.statusText}>
+                Link is ready! Share it or scan the QR below.
+              </p>
             </div>
+            <QRCode data={shortenedUrl} />
+            </>
           )}
+          <div>
+            {/* remove : this needs to be shown only when we have that the url generated successully */}
+            {/* <QRCode /> */}
+          </div>
         </div>
       </section>
     </main>

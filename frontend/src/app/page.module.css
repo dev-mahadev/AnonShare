@@ -2,19 +2,8 @@
 
 .main {
   min-height: 100vh;
-  width: 100vw;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 100, 255, 0.6) 0%,
-    /* Deep Ocean Blue */ rgba(0, 180, 255, 0.4) 30%,
-    /* Bright Aqua */ rgba(0, 220, 200, 0.2) 60%,
-    /* Turquoise */ rgba(100, 240, 220, 0.1) 80%,
-    /* Light Teal */ rgba(100, 240, 220, 0) 100% /* Transparent */
-  );
-
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
+  width: 100%;
+  margin: 0;
 }
 
 /* Header with translucent effect */
@@ -24,7 +13,7 @@
   left: 0;
   right: 0;
   padding: 1rem 2rem;
-  backdrop-filter: blur(0.625rem);
+  backdrop-filter: blur(0.2rem);
   background-color: rgba(255, 255, 255, 0.15);
   border-bottom: 0.0625rem solid rgba(255, 255, 255, 0.2);
   z-index: 100;
@@ -57,8 +46,6 @@
   font-weight: 700;
   color: white;
   text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
-  color: #7c3aed;
-
 }
 
 .nav {
@@ -78,7 +65,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(0.3125rem); /* 5px */
-  
 }
 
 .navButton:hover {
@@ -106,24 +92,38 @@
 
 /* Hero section with centered content - Fixed height to prevent scrolling */
 .hero {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   padding: 6rem 2rem 2rem;
   box-sizing: border-box;
+  backdrop-filter: blur(0.9rem);
 }
 
 .content {
   text-align: center;
   max-width: 37.5rem; /* 600px */
   width: 100%;
-  margin-top: 15rem;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.4s ease-in-out forwards;
+  padding: 1rem;
+}
+
+.contentWithoutGeneratedUrl {
+  composes: content;
+  margin-top: 10rem;
+}
+
+.contentWithGeneratedUrl {
+  composes: content;
+  margin-top: 2rem;
 }
 
 .title {
   font-size: 3rem;
   font-weight: 800;
-  color: #7c3aed;
+  color: white;
   margin-bottom: 1rem;
   text-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
   line-height: 1.2;
@@ -131,7 +131,7 @@
 
 .subtitle {
   font-size: 1.25rem;
-  color: #7c3aed;
+  color: white;
   margin-bottom: 3rem;
   font-weight: 300;
 }
@@ -174,7 +174,8 @@
   padding: 1rem 2rem;
   border: none;
   border-radius: 1.875rem; /* 30px */
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+  /* background: linear-gradient(45deg, #ff6b6b, #ee5a24); */
+  background-color: #3a7bc8;
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -201,19 +202,18 @@
   transform: translateX(0.125rem);
 }
 
-.shortenedUrlTable{
-  padding:1rem 0;
+.shortenedUrlTable {
+  padding: 1rem 0;
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
-.shortenedUrlRow{
+.shortenedUrlRow {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-
 
 /* Responsive Design */
 @media (max-width: 48rem) {
@@ -273,9 +273,6 @@
     padding: 0.75rem 1.25rem;
     font-size: 0.9rem;
   }
-  .inputContainer{
-    max-width: 80%;
-  }
 
   .submitButton {
     padding: 0.75rem 1.5rem;
@@ -284,8 +281,7 @@
 
   .logoText {
     font-size: 1.1rem;
-    color: #7c3aed;
-
+    color: white;
   }
 
   .navButton,
@@ -293,4 +289,82 @@
     padding: 0.4rem 1.2rem;
     font-size: 0.8rem;
   }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* styles/UrlDisplay.module.css */
+
+.urlContainer {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #f9f9fb;
+}
+
+.urlContainer h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.urlDisplayBox {
+  border: 2px dashed #4a90e2;
+  border-radius: 8px;
+  padding: 14px 16px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 12px; */
+  font-size: 14px;
+  color: #2d3748;
+  word-break: break-all;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.urlText {
+  flex: 1;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.5rem;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.copyBtn:hover {
+  background: #3a7bc8;
+}
+
+.copyBtn:active {
+  transform: scale(0.98);
+}
+
+.statusText {
+  margin-top: 12px;
+  color: #4a5568;
+  font-size: 14px;
 }

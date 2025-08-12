@@ -1,15 +1,17 @@
 /* Global css properties */
 
 * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: "Fira Code", monospace;
 }
 
-html,
 body {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
-  overflow-y: hidden;
-  margin: 0px;
+  background-image: url("/background-images/background-image-1.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Remove if you want bg to scroll */
+  margin:0px;
 }

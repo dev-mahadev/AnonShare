@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import UrlMapping
 from django.conf import settings
+from .utils import remove_protocol_and_www
 
 class BaseUrlSerializer(serializers.ModelSerializer):
 
@@ -21,5 +22,6 @@ class UrlDetailSerializer(serializers.ModelSerializer):
     
     def get_full_length_short_url(self, instance):
         # Ensure the presence/absence of slash (/) before short/ is based on the domain
-        return settings.DOMAIN+f"short/{instance.short_url}/"
+        full_length_url = settings.DOMAIN+f"r/{instance.short_url}/"
+        return remove_protocol_and_www(full_length_url)
 

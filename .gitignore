@@ -12,5 +12,6 @@ dev_files/
 # Cache files
 __pycache__/
 
-# Log files
+# Log and other non-required files
 logs
+*.rdb

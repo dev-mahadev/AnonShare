@@ -11,6 +11,7 @@
   "dependencies": {
     "next": "15.4.4",
     "notistack": "^3.0.2",
+    "qr-code-styling": "^1.9.2",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   }

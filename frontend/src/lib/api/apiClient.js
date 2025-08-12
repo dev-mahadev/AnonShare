@@ -4,7 +4,7 @@ import { getCsrfToken } from "./util";
 
 // Base URL from environment variables. Eg: http://localhost:3000
 // Note: Contains url **wihout** suffix '/'
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL +"/api";
 
 /**
  * apiClient - A simple wrapper around fetch for API calls
