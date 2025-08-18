@@ -10,6 +10,12 @@ services:
     volumes:
       - static_volume:/app/staticfiles
       - logs_volume:/logs
+    command: >
+      sh -c "
+        python manage.py migrate --noinput &&
+        python manage.py collectstatic --noinput &&
+        gunicorn shortner.wsgi:application --bind 0.0.0.0:8000
+      "
 
     networks:
       - backend_network
@@ -19,6 +25,18 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  worker:
+    build: ./backend
+    command: celery -A shortner worker -l INFO
+    depends_on:
+      - django
+
+  beat:
+    build: ./backend
+    command: celery -A shortner beat -l INFO -S django
+    depends_on:
+      - django
 
   database:
     image: mysql:8.0

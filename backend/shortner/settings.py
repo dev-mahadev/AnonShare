@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
 CORS_ALLOWED_ORIGINS = []
 DOMAIN=None
+REDIS_LOCATION=env('REDIS_LOCATION', default="redis://redis:6379/0")
 
 if env("DJANGO_ENV", default='PRODUCTION') == 'DEVELOPMENT':
     DEBUG=True
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     # Third party apps
     'corsheaders',
     'rest_framework',
+    'django_celery_beat',
     
     # Custom apps 
     'short'
@@ -128,9 +130,21 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379",
+        "LOCATION": REDIS_LOCATION,
     }
 }
+
+
+# Celery beat configuration
+CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='redis://redis:6379/1')
+CELERY_RESULT_BACKEND =  env('CELERY_RESULT_BACKEND', default='redis://redis:6379/2')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
+
+# Use django-celery-beat's database scheduler
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 # Password validation

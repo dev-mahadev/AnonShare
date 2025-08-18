@@ -4,6 +4,8 @@ from python:3.11-slim-bookworm
 # Setting workign directory
 WORKDIR /app
 
+# OTODO-2: User creation related
+
 # Install system dependencies (for mysqlclient)
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
@@ -16,10 +18,3 @@ RUN apt-get update && apt-get install -y \
 # Copy the application code
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
-
-# This is commented for local develpoment
-# CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
-
-# Expose port and run server
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn shortner.wsgi:application --bind 0.0.0.0:8000 "]
-

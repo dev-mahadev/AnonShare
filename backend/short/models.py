@@ -57,7 +57,7 @@ class UrlMapping(BaseModel):
         combined_bytes = combined.to_bytes(12, 'big') + uuid_bytes[:4]
         
         # Convert to base62 (0-9, a-z, A-Z)
-        return self.base62_encode(int.from_bytes(combined_bytes, 'big'))[:10]
+        return self.base62_encode(int.from_bytes(combined_bytes, 'big'))[-6:]
     
     def base62_encode(self, number):
         chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
