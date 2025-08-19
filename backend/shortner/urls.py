@@ -26,6 +26,8 @@ urlpatterns = [
 	
     # Application level paths
     path("api/short/", include("short.urls")),
+    path("api/paste/", include("pastes.urls")),
+	
 ]
 
 

@@ -1,4 +1,5 @@
 import uuid, time, threading
+import re
 
 def generate_short_url(instance):
 	# NOTE : Use for now : (issues : too many initial common characters, making it predictable)
@@ -34,3 +35,11 @@ def base62_encode(number):
 	
 	# Ensure minimum length of 10 characters
 	return result.zfill(10)
+
+
+def remove_protocol_and_www(url):
+    # Remove http:// or https://
+    url = re.sub(r'^https?://', '', url)
+    # Remove www.
+    url = re.sub(r'^www\.', '', url)
+    return url

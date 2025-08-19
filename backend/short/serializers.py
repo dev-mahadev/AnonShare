@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import UrlMapping
 from django.conf import settings
-from .utils import remove_protocol_and_www
+from common.utils import remove_protocol_and_www
 
 class BaseUrlSerializer(serializers.ModelSerializer):
 

@@ -69,7 +69,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     
     # Custom apps 
-    'short'
+    'short',
+    'pastes'
 ]
 
 MIDDLEWARE = [
