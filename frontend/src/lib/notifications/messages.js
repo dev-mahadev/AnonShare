@@ -2,29 +2,35 @@ export const MESSAGES = {
   SHORT: {
     CREATED: {
       message: "Link shortened successfully.",
-      kind: "success"
+      kind: "success",
     },
     DELETED: {
       message: "Link deleted successfully!",
-      kind: "success"
+      kind: "success",
     },
     UPDATED: {
       message: "Link updated successfully.",
-      kind: "success"
+      kind: "success",
     },
-    COPIED:{
+    COPIED: {
       message: "Copied the link",
-      kind: "success"
-    }
+      kind: "success",
+    },
+  },
+  PASTE: {
+    CREATED: {
+      message: "Paste saved successfully.",
+      kind: "success",
+    },
   },
   AUTH: {
     LOGIN: {
       message: "Logged in successfully.",
-      kind: "success"
+      kind: "success",
     },
     LOGOUT: {
       message: "Logged out successfully!",
-      kind: "info"
-    }
-  }
+      kind: "info",
+    },
+  },
 };

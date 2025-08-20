@@ -1,4 +1,5 @@
 import { Providers } from "./providers";
+import Header from "@/Components/Header";
 
 export const metadata = {
   title: "Links.io",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/styles/global.css" />
       </head>
       <body>
+        <Header />
         <Providers>{children}</Providers>
       </body>
     </html>

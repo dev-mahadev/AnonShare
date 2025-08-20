@@ -6,10 +6,9 @@ import { ENDPOINTS } from "@/lib/api/endpoints";
 import { useNotify } from "@/lib/notifications/notificationClient";
 import { MESSAGES } from "@/lib/notifications/messages";
 import { GENERIC_ERRORS } from "@/lib/notifications/errors";
+import ShortenedContent from "@/Components/ShortenedContent";
 
-import QRCode from "@/Components/QrCode";
-
-export default function Home() {
+export default function Short() {
   const [userInputUrl, setUserInputUrl] = useState(null);
   const [shortenedUrl, setShortenedUrl] = useState(null);
 
@@ -39,47 +38,25 @@ export default function Home() {
       });
   };
 
-  const handleCopyUrl = async () => {
-    try {
-      await navigator.clipboard.writeText(shortenedUrl);
-      notify(MESSAGES.SHORT.COPIED);
-    } catch (err) {
-      notify(GENERIC_ERRORS.GENERIC);
-    }
-  };
-
   return (
-    <main className={styles.main}>
-      {/* Header with translucent effect */}
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logoContainer}>
-            <img
-              src="/shortner.webp"
-              alt="ShortURL Logo"
-              className={styles.logoIcon}
-            />
-            <span className={styles.logoText}>ShortURL</span>
-          </div>
-          {/* TODO: Implement login and signup functionalities */}
-          {/* <nav className={styles.nav}>
-            <button className={styles.navButton}>Login</button>
-            <button className={styles.navButtonPrimary}>Sign Up</button>
-          </nav> */}
-        </div>
-      </header>
-
+    <main className="main">
       {/* Main content centered */}
       <section className={styles.hero}>
-        <div className={shortenedUrl ? styles.contentWithGeneratedUrl : styles.contentWithoutGeneratedUrl}>
+        <div
+          className={
+            shortenedUrl
+              ? styles.contentWithGeneratedUrl
+              : styles.contentWithoutGeneratedUrl
+          }
+        >
           <h1 className={styles.title}>Shorten Your Links</h1>
           <p className={styles.subtitle}>Make long URLs short and shareable</p>
 
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputContainer}>
               <input
-              type="url"
-              required
+                type="url"
+                required
                 name="long_url_input"
                 onChange={(e) => setUserInputUrl(e.target.value)}
                 placeholder="https://www.mywebsite.com/..."
@@ -102,36 +79,10 @@ export default function Home() {
               </button>
             </div>
           </form>
-          {/* TODO-:  */}
-          {shortenedUrl && (
-            <>
-            <div className={styles.urlContainer}>
-              <h3>🔗 Your Generated Link</h3>
 
-              <div className={styles.urlDisplayBox}>
-                <span className={styles.urlText} id="generated-url">
-                  {shortenedUrl}
-                </span>
-                <button
-                  className={styles.copyBtn}
-                  onClick={handleCopyUrl}
-                  type="button"
-                >
-                  {"Copy"}
-                </button>
-              </div>
-
-              <p className={styles.statusText}>
-                Link is ready! Share it or scan the QR below.
-              </p>
-            </div>
-            <QRCode data={shortenedUrl} />
-            </>
-          )}
-          <div>
-            {/* remove : this needs to be shown only when we have that the url generated successully */}
-            {/* <QRCode /> */}
-          </div>
+          {/* Copy url and QR content */}
+          {shortenedUrl && <ShortenedContent shortenedUrl={shortenedUrl} />}
+          <div></div>
         </div>
       </section>
     </main>
