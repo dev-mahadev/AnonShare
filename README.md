@@ -61,4 +61,5 @@ CELERY_RESULT_BACKEND="redis://redis:6379/2"
 ### 3. Frontend .env (for nextjs specific )
 ```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:80
+INTERNAL_API_BASE_URL=http://django:8000
 ```
