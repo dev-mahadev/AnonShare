@@ -11,6 +11,9 @@ logger = logging.getLogger("django")
 class UrlViewSet(viewsets.ModelViewSet):
     queryset = UrlMapping.objects.all()
     pagination_class = PageNumberPagination  # Default: ?page=2
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
     
     def get_serializer(self, *args, **kwargs):
         match self.request.method:

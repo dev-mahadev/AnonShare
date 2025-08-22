@@ -4,8 +4,10 @@ services:
     expose:
       - "8000"
     depends_on:
-      - database
-      - redis
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     restart: unless-stopped
     volumes:
       - static_volume:/app/staticfiles
@@ -30,13 +32,15 @@ services:
     build: ./backend
     command: celery -A shortner worker -l INFO
     depends_on:
-      - django
+      django:
+        condition: service_healthy
 
   beat:
     build: ./backend
     command: celery -A shortner beat -l INFO -S django
     depends_on:
-      - django
+      django:
+        condition: service_healthy
 
   database:
     image: mysql:8.0
@@ -77,7 +81,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - django
+      django:
+        condition: service_healthy
     volumes:
       - static_volume:/app/staticfiles:ro  
     networks:

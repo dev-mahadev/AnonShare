@@ -9,6 +9,7 @@ export const ENDPOINTS = {
 
   PASTE: {
     BASE: `${PASTE_BASE_URL}/`,
+    DETAIL: (shortUrl) => `${PASTE_BASE_URL}/${shortUrl}`,
   },
 
   // TODO: IMPLEMENT in next phase
