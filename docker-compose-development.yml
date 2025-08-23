@@ -31,15 +31,23 @@ services:
   worker:
     build: ./backend
     command: celery -A shortner worker -l INFO
+    networks:
+      - backend_network
     depends_on:
-      django:
+      redis:
+        condition: service_healthy
+      database:
         condition: service_healthy
 
   beat:
     build: ./backend
     command: celery -A shortner beat -l INFO -S django
+    networks:
+      - backend_network
     depends_on:
-      django:
+      redis:
+        condition: service_healthy
+      database:
         condition: service_healthy
 
   database:
