@@ -3,6 +3,9 @@ asgiref==3.8.1
 asttokens==3.0.0
 async-timeout==5.0.1
 billiard==4.2.1
+black==25.1.0
+boto3==1.40.17
+botocore==1.40.17
 celery==5.5.3
 click==8.2.1
 click-didyoumean==0.3.1
@@ -23,12 +26,16 @@ gunicorn==23.0.0
 ipdb==0.13.13
 ipython==8.37.0
 jedi==0.19.2
+jmespath==1.0.1
 kombu==5.5.4
 matplotlib-inline==0.1.7
+mypy_extensions==1.1.0
 mysqlclient==2.2.7
 packaging==25.0
 parso==0.8.4
+pathspec==0.12.1
 pexpect==4.9.0
+platformdirs==4.3.8
 prompt_toolkit==3.0.51
 ptyprocess==0.7.0
 pure_eval==0.2.3
@@ -37,6 +44,7 @@ PyJWT==2.9.0
 python-crontab==3.3.0
 python-dateutil==2.9.0.post0
 redis==6.4.0
+s3transfer==0.13.1
 six==1.17.0
 sqlparse==0.5.3
 stack-data==0.6.3
@@ -44,5 +52,6 @@ tomli==2.2.1
 traitlets==5.14.3
 typing_extensions==4.14.0
 tzdata==2025.2
+urllib3==2.5.0
 vine==5.1.0
 wcwidth==0.2.13

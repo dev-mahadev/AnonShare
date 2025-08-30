@@ -70,7 +70,8 @@ INSTALLED_APPS = [
     
     # Custom apps 
     'short',
-    'pastes'
+    'pastes',
+    'uploads'
 ]
 
 MIDDLEWARE = [

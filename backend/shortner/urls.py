@@ -23,10 +23,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', views.health_check, name='health'),
 	path("r/<str:short_url>/", views.redirect_short_url, name='redirect_url'),
+	path("f/<str:short_url>/", views.redirect_file_url, name='redirect_file_url'),
 	
     # Application level paths
     path("api/short/", include("short.urls")),
     path("api/paste/", include("pastes.urls")),
+	path("api/uploads/", include("uploads.urls"))
 	
 ]
 
