@@ -1,3 +1,4 @@
+import { trimWord } from "@/utils/general";
 export const MESSAGES = {
   SHORT: {
     CREATED: {
@@ -21,6 +22,11 @@ export const MESSAGES = {
     CREATED: {
       message: "Paste saved successfully.",
       kind: "success",
+    },
+  },
+  UPLOADS: {
+    UPLOADED: (fileName) => {
+      return { message: `${trimWord(fileName)} uploaded.`, kind: "success" };
     },
   },
   AUTH: {

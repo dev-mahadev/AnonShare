@@ -3,6 +3,7 @@ from common.models import BaseModel
 
 class UrlMapping(BaseModel):
     long_url = models.TextField(null=True, blank=True)
+    # CTODO-8.2
 
     class Meta:
         db_table = 'url_mappings'

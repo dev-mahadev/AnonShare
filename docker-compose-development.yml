@@ -108,7 +108,7 @@ services:
     expose:
       - "6379"
     volumes:
-      - ./redis:/data
+      - ./redis_data:/data
       - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -119,6 +119,54 @@ services:
     networks:
       - backend_network
 
+  s3:
+    image: minio/minio:latest
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_SERVER_URL: ${MINIO_SERVER_URL}
+      MINIO_BROWSER: ${MINIO_BROWSER}
+      MINIO_CONSOLE_UI_DISABLED: ${MINIO_CONSOLE_UI_DISABLED}
+
+    command: server --address ":9000" --console-address ":9001" /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    
+    # Why not expose? ref the decisions_made file
+    ports:  
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - s3_data:/data
+
+    networks:
+      - backend_network
+  
+  # For creating first time setup of users, bucket...etc
+  s3-setup:
+    image: minio/mc:latest
+    container_name: s3-setup
+    entrypoint: ["/bin/sh"] 
+    volumes:
+      - ./s3/setup/01-bucket-creation-and-user-addition.sh:/usr/local/bin/01-bucket-creation-and-user-addition.sh
+    environment:
+      MINIO_SERVER: ${MC_HOST_local}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      USER_NAME: ${AWS_ACCESS_KEY_ID}
+      USER_SECRET: ${AWS_SECRET_ACCESS_KEY}
+      BUCKET_NAME: ${AWS_STORAGE_BUCKET_NAME}
+    command: ["/usr/local/bin/01-bucket-creation-and-user-addition.sh"]
+    restart: "no"
+    depends_on:
+      s3:
+        condition: service_healthy
+    networks:
+      - backend_network
     
 
 volumes:
@@ -126,6 +174,7 @@ volumes:
   static_volume:
   logs_volume:
   redis_data:
+  s3_data:
 
 networks:
   backend_network:

@@ -43,3 +43,12 @@ def remove_protocol_and_www(url):
     # Remove www.
     url = re.sub(r'^www\.', '', url)
     return url
+
+def append_slash(url):
+	"""
+	Appends slash at end of url if **not** present
+	"""
+	if len(url) and url[-1]!='/':
+		url+='/'
+	
+	return url
