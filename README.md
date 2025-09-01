@@ -107,3 +107,12 @@ chmod +x ./s3/setup/01-bucket-creation-and-user-addition.sh
 ```
 docker-compose up -d s3
 ```
+
+
+## Other Notes:
+- This is for local development
+- There are lot of other changes which are done in different repository before deploying.
+
+
+### Resources used:     
+1. [svgrepo](https://www.svgrepo.com/)

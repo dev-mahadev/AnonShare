@@ -10,7 +10,7 @@ export default function ClientQR({ data = null, addtionalOptions = {} }) {
     height: 300,
     type: "svg",
     data: data,
-    image: "/shortner.webp",
+    image: "/shortner.svg",
     margin: 10,
     qrOptions: {
       typeNumber: 0,

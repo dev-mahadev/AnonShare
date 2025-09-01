@@ -1,0 +1,208 @@
+.homePage {
+  max-width: 75rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  margin: 2rem auto;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #e5e5e5;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: #a8e396;
+  max-width: 37.5rem;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.featureBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+  border: 0.125rem solid transparent;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(1.25rem);
+  animation: fadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.featureBox:nth-child(1) {
+  animation-delay: 0.1s; 
+}
+
+.featureBox:nth-child(2) {
+  animation-delay: 0.2s; 
+}
+
+.featureBox:nth-child(3) {
+  animation-delay: 0.3s; 
+}
+.featureBox:hover {
+  transform: translate(-0.25rem, -0.3125rem) rotate(-1deg);
+  box-shadow: 0 0.625rem 1.5625rem rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.featureBox.blue {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.featureBox.green {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+.featureBox.purple {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+}
+
+.featureIcon {
+  margin-bottom: 1.5rem;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  filter: drop-shadow(0 0.125rem 0.25rem rgba(0, 0, 0, 0.2));
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+  opacity: 0.9;
+}
+
+.featureCta {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  gap: 0.5rem;
+}
+
+.arrow {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.featureBox:hover .arrow {
+  transform: translateX(0.25rem);
+}
+
+.infoSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fadeIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.7s both;
+}
+
+.infoCard {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.infoCard h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.infoCard p {
+  color: #666;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.neonDivider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.neonDivider::before,
+.neonDivider::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00ffff,
+    #00ffff,
+    #00ffff,
+    transparent
+  );
+  box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff,
+    0 0 20px #00ffff;
+  position: relative;
+}
+
+.neonDivider::before {
+  margin-right: 1rem;
+}
+
+.neonDivider::after {
+  margin-left: 1rem;
+}
+
+.neonDividerText {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  font-weight: bold;
+  white-space: nowrap;
+}

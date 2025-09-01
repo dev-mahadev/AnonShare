@@ -2,21 +2,24 @@
 
 * {
   font-family: "Fira Code", monospace;
+  scrollbar-width: 0px;
 }
 
 body {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
-  background-image: url("/background-images/background-image-1.webp");
+  background-image: linear-gradient(to bottom right, #1A1A1D, #0D1630, #14357D, #5377D8);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Remove if you want bg to scroll */
-  margin:0px;
+  background-attachment: fixed;
+  margin: 0px;
   backdrop-filter: blur(32px);
   min-height: 100vh;
+  overflow-y: scroll;
 }
+
 .main {
   min-height: 100vh;
   width: 100%;

@@ -44,17 +44,7 @@ const FileUpload = () => {
     if (!file || isUploading) return;
 
     setIsUploading(true);
-    setUploadProgress(0);
     setError("");
-
-    try {
-      await uploadWithPresignedPost(file);
-      // Handle success (show success message, etc.)
-    } catch (err) {
-      setError(`Upload failed: ${err.message}`);
-    } finally {
-      setIsUploading(false);
-    }
   };
 
   // Handle drag events
