@@ -1,10 +1,11 @@
 import { Providers } from "./providers";
 import Header from "@/Components/Header";
+import ErrorBoundary from "@/Components/ErrorBoundary";
 
 export const metadata = {
-  title: "Links.io",
+  title: "Share8",
   icons: {
-    icon: "/shortner.webp",
+    icon: "/shortner.svg",
   },
 };
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Header />
-        <Providers>{children}</Providers>
+        <ErrorBoundary>
+          <Providers>{children}</Providers>
+        </ErrorBoundary>
       </body>
     </html>
   );
