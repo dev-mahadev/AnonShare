@@ -19,3 +19,4 @@ logs
 # IDE Related
 *.xml
 *.iml
+.idea

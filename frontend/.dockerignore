@@ -1,0 +1,37 @@
+### Environment Variables
+.env
+.env.local
+.env.*.local
+next-env.d.ts
+
+### Dependencies
+node_modules/
+.pnpm/
+
+### Build Output
+.next/
+out/
+dist/
+
+### Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+### OS & Editor Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### Test Coverage
+coverage/
+.nyc_output/
+
+### Version Control
+.git/
+.gitignore

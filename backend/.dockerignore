@@ -1,0 +1,50 @@
+### Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+### Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+### Logs & Local Development Files
+*.log
+logs/
+.local/
+.db.sqlite3
+db.sqlite3
+media/
+staticfiles/
+
+### Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+### IDE / Editor Files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### Build & Distribution
+dist/
+build/
+*.egg-info/
+*.egg
+
+### Test & Type Checker Cache
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+### Version Control
+.git/
+.gitignore
