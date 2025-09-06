@@ -83,6 +83,7 @@ const FileUpload = () => {
   ) => {
     notify(uploadExecutionMessage);
     setShortenedUrl(shortenedUrl);
+    setIsUploading(false);
   };
 
   return (
